@@ -30,8 +30,3 @@ static class Program
         return checked((int)value);
     }
 }
-
-
-
-
-
