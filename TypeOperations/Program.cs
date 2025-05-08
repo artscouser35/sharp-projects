@@ -30,10 +30,12 @@ static class Program
 				break;
 				
 		}
-		SafeSum(9223372036854775806, 2.6);
+		SafeSum(92233720368547758, 2.6);
 		Symbol('A');
 		SymbolOut(97);
 		Time(2);
+		CheckChessStepHorse(4,4,6,3);
+		Console.WriteLine(CheckChessStepHorse(3,4,6,3));
 	
     }
 
@@ -111,13 +113,9 @@ static class Program
 	
 	static long SafeSum(long a, double b)
 	{
-		long result = (long)(a+b);
-		if(result > long.MaxValue)
-		{
-			throw new OverflowException();		
-		}
-		
+		long result = checked((long)(a+b));		
 		Console.WriteLine(result);
+		
 		return result;
 	}
 	
@@ -127,16 +125,16 @@ static class Program
 		a++;
 		code = (char)a;
 		Console.WriteLine(code);
+		
 		return code;
 	}
 	
 	static char SymbolOut (int codeOut)
 	{
 		char symbolOut = (char)codeOut;
-		
 		Console.WriteLine(symbolOut);
-		return symbolOut;
 		
+		return symbolOut;
 	}
 
 	static double Time(double seconds)
@@ -145,7 +143,115 @@ static class Program
 		double hourses = minutes/60;
 		
 		Console.WriteLine($"{minutes},{hourses},{seconds}");
-		return seconds;
 		
+		return seconds;
 	}
+	/*любая фигура
+1. Стоит на месте
+2. 8x8 ( <1, >8) любая из координат
+
+Конь!
+3. dx, dy !=0
+4. |dx + dy| = 3
+*/
+
+	static bool CheckChessStepHorse(int xSource, int ySource, int xDestination, int yDestination)
+	{
+		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		{
+			return false;
+		}
+
+		int dx = Math.Abs(xSource-xDestination);
+		int dy = Math.Abs(ySource-yDestination);
+		
+		return IsHorse(dx,dy);
+	}
+	
+	static bool IsHorse (int dx, int dy)
+	{
+		return (dx != 0 || dy != 0) && (dx + dy) == 3;
+	}
+	
+	static bool CheckChessStepBishop(int xSource, int ySource, int xDestination, int yDestination)
+	{
+		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		{
+			return false;
+		}
+
+		int dx = Math.Abs(xSource-xDestination);
+		int dy = Math.Abs(ySource-yDestination);
+		
+		return IsBishop(dx,dy);
+	}
+	
+	static bool IsBishop(int dx, int dy)
+	{
+		return dx == dy;
+	}
+	
+	static bool CheckChessStepRook(int xSource, int ySource, int xDestination, int yDestination)
+	{
+		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		{
+			return false;
+		}
+
+		int dx = Math.Abs(xSource-xDestination);
+		int dy = Math.Abs(ySource-yDestination);
+		
+		return IsRock(dx,dy);
+	}
+	
+	static bool IsRock(int dx, int dy)
+	{
+		return (dx != 0 && dy == 0) || (dx == 0 && dy !=0);
+	}
+	
+	static bool CheckChessStepQueen(int xSource, int ySource, int xDestination, int yDestination)
+	{
+		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		{
+			return false;
+		}
+				
+		int dx = Math.Abs(xSource-xDestination);
+		int dy = Math.Abs(ySource-yDestination);
+		
+		return IsQueen(dx,dy);
+	}
+	
+	static bool IsQueen(int dx, int dy)
+	{
+		return IsBishop(dx,dy) || IsRock(dx,dy);
+	}
+	
+	static bool StepIsReal(int xSource, int ySource, int xDestination, int yDestination)
+	{
+		if(xSource == xDestination && ySource == yDestination)
+		{
+			Console.WriteLine("Стоит на месте");
+			return false;
+		}
+		
+		bool sourceIsNotReal = xSource < 1 || xSource > 8 || ySource < 1 || ySource > 8;
+		bool destinationIsNotReal = xDestination < 1 || xDestination > 8 || yDestination < 1 || yDestination > 8;
+		
+		if(sourceIsNotReal || destinationIsNotReal)
+		{
+			Console.WriteLine("Ход некорректный");
+			return false;
+		}
+		
+		return true;
+	}
+	
+	
+		
 }
+
+
+
+
+
