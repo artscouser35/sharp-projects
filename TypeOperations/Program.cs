@@ -32,6 +32,7 @@ static class Program
 		}
 		SafeSum(9223372036854775806, 2.6);
 		Symbol('A');
+		SymbolOut(97);
 	
     }
 
@@ -126,6 +127,15 @@ static class Program
 		code = (char)a;
 		Console.WriteLine(code);
 		return code;
+	}
+	
+	static char SymbolOut (int codeOut)
+	{
+		char symbolOut = (char)codeOut;
+		
+		Console.WriteLine(symbolOut);
+		return symbolOut;
+		
 	}
 	
 }
