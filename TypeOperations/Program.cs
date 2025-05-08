@@ -33,6 +33,7 @@ static class Program
 		SafeSum(9223372036854775806, 2.6);
 		Symbol('A');
 		SymbolOut(97);
+		Time(2);
 	
     }
 
@@ -137,5 +138,14 @@ static class Program
 		return symbolOut;
 		
 	}
-	
+
+	static double Time(double seconds)
+	{
+		double minutes = seconds/60;
+		double hourses = minutes/60;
+		
+		Console.WriteLine($"{minutes},{hourses},{seconds}");
+		return seconds;
+		
+	}
 }
