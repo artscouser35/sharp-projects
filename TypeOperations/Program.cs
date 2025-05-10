@@ -34,10 +34,10 @@ static class Program
 		Symbol('A');
 		SymbolOut(97);
 		Time(2);
-		CheckChessStepHorse(4,4,6,3);
-		Console.WriteLine(CheckChessStepHorse(3,4,6,3));
-		Console.WriteLine(CheckChessStepPawn(3,4,6,3));
-		Console.WriteLine(CheckChessStepKing(3,4,6,3));
+		CheckChessStepHorse((4,4),(6,3));
+		Console.WriteLine(CheckChessStepHorse((3,4),(6,3)));
+		Console.WriteLine(CheckChessStepPawn((3,4),(6,3)));
+		Console.WriteLine(CheckChessStepKing((3,4),(6,3)));
 		
 		
 	
@@ -159,15 +159,15 @@ static class Program
 4. |dx + dy| = 3
 */
 
-	static bool CheckChessStepHorse(int xSource, int ySource, int xDestination, int yDestination)
+	static bool CheckChessStepHorse((int x, int y)source, (int x, int y)destination)
 	{
-		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		if(!StepIsReal(source,destination))
 		{
 			return false;
 		}
 
-		int dx = Math.Abs(xSource-xDestination);
-		int dy = Math.Abs(ySource-yDestination);
+		int dx = Math.Abs(source.x-destination.x);
+		int dy = Math.Abs(source.y-destination.y);
 		
 		return IsHorse(dx,dy);
 	}
@@ -177,15 +177,15 @@ static class Program
 		return (dx != 0 || dy != 0) && (dx + dy) == 3;
 	}
 	
-	static bool CheckChessStepBishop(int xSource, int ySource, int xDestination, int yDestination)
+	static bool CheckChessStepBishop((int x, int y)source, (int x, int y)destination)
 	{
-		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		if(!StepIsReal(source,destination))
 		{
 			return false;
 		}
 
-		int dx = Math.Abs(xSource-xDestination);
-		int dy = Math.Abs(ySource-yDestination);
+		int dx = Math.Abs(source.x-destination.x);
+		int dy = Math.Abs(source.y-destination.y);
 		
 		return IsBishop(dx,dy);
 	}
@@ -195,15 +195,15 @@ static class Program
 		return dx == dy;
 	}
 	
-	static bool CheckChessStepRook(int xSource, int ySource, int xDestination, int yDestination)
+	static bool CheckChessStepRook((int x, int y)source, (int x, int y)destination)
 	{
-		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		if(!StepIsReal(source,destination))
 		{
 			return false;
 		}
 
-		int dx = Math.Abs(xSource-xDestination);
-		int dy = Math.Abs(ySource-yDestination);
+		int dx = Math.Abs(source.x-destination.x);
+		int dy = Math.Abs(source.y-destination.y);
 		
 		return IsRock(dx,dy);
 	}
@@ -213,15 +213,15 @@ static class Program
 		return (dx != 0 && dy == 0) || (dx == 0 && dy !=0);
 	}
 	
-	static bool CheckChessStepQueen(int xSource, int ySource, int xDestination, int yDestination)
+	static bool CheckChessStepQueen((int x, int y)source, (int x, int y)destination)
 	{
-		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		if(!StepIsReal(source,destination))
 		{
 			return false;
 		}
 				
-		int dx = Math.Abs(xSource-xDestination);
-		int dy = Math.Abs(ySource-yDestination);
+		int dx = Math.Abs(source.x-destination.x);
+		int dy = Math.Abs(source.y-destination.y);
 		
 		return IsQueen(dx,dy);
 	}
@@ -231,16 +231,16 @@ static class Program
 		return IsBishop(dx,dy) || IsRock(dx,dy);
 	}
 	
-	static bool StepIsReal(int xSource, int ySource, int xDestination, int yDestination)
+	static bool StepIsReal((int x, int y)source, (int x, int y)destination)
 	{
-		if(xSource == xDestination && ySource == yDestination)
+		if(source.x == destination.x && source.y == destination.y)
 		{
 			Console.WriteLine("Стоит на месте");
 			return false;
 		}
 		
-		bool sourceIsNotReal = xSource < 1 || xSource > 8 || ySource < 1 || ySource > 8;
-		bool destinationIsNotReal = xDestination < 1 || xDestination > 8 || yDestination < 1 || yDestination > 8;
+		bool sourceIsNotReal = source.x < 1 || source.x > 8 || source.y < 1 || source.y > 8;
+		bool destinationIsNotReal = destination.x < 1 || destination.x > 8 || destination.y < 1 || destination.y > 8;
 		
 		if(sourceIsNotReal || destinationIsNotReal)
 		{
@@ -251,28 +251,28 @@ static class Program
 		return true;
 	}
 	
-	static bool CheckChessStepPawn(int xSource, int ySource, int xDestination, int yDestination)
+	static bool CheckChessStepPawn((int x, int y)source, (int x, int y)destination)
 	{
-		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		if(!StepIsReal(source,destination))
 		{
 			return false;
 		}
 				
-		int dx = Math.Abs(xSource-xDestination);
-		int dy = Math.Abs(ySource-yDestination);
+		int dx = Math.Abs(source.x-destination.x);
+		int dy = Math.Abs(source.y-destination.y);
 		
 		return dx == 0 && dy == 1;
 	}
 	
-	static bool CheckChessStepKing(int xSource, int ySource, int xDestination, int yDestination)
+	static bool CheckChessStepKing((int x, int y)source, (int x, int y)destination)
 	{
-		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		if(!StepIsReal(source,destination))
 		{
 			return false;
 		}
 				
-		int dx = Math.Abs(xSource-xDestination);
-		int dy = Math.Abs(ySource-yDestination);
+		int dx = Math.Abs(source.x-destination.x);
+		int dy = Math.Abs(source.y-destination.y);
 		
 		return (dx == 1 && dy == 0) || (dx == 0 && dy == 1) || (dx == 1 && dy == 1);
 	}
