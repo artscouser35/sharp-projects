@@ -36,6 +36,10 @@ static class Program
 		Time(2);
 		CheckChessStepHorse(4,4,6,3);
 		Console.WriteLine(CheckChessStepHorse(3,4,6,3));
+		Console.WriteLine(CheckChessStepPawn(3,4,6,3));
+		Console.WriteLine(CheckChessStepKing(3,4,6,3));
+		
+		
 	
     }
 
@@ -247,7 +251,31 @@ static class Program
 		return true;
 	}
 	
+	static bool CheckChessStepPawn(int xSource, int ySource, int xDestination, int yDestination)
+	{
+		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		{
+			return false;
+		}
+				
+		int dx = Math.Abs(xSource-xDestination);
+		int dy = Math.Abs(ySource-yDestination);
+		
+		return dx == 0 && dy == 1;
+	}
 	
+	static bool CheckChessStepKing(int xSource, int ySource, int xDestination, int yDestination)
+	{
+		if(!StepIsReal(xSource,ySource,xDestination,yDestination))
+		{
+			return false;
+		}
+				
+		int dx = Math.Abs(xSource-xDestination);
+		int dy = Math.Abs(ySource-yDestination);
+		
+		return (dx == 1 && dy == 0) || (dx == 0 && dy == 1) || (dx == 1 && dy == 1);
+	}
 		
 }
 
