@@ -33,14 +33,18 @@ static class Program
 		SafeSum(92233720368547758, 2.6);
 		Symbol('A');
 		SymbolOut(97);
-		Time(2);
 		CheckChessStepHorse((4,4),(6,3));
 		Console.WriteLine(CheckChessStepHorse((3,4),(6,3)));
 		Console.WriteLine(CheckChessStepPawn((3,4),(6,3)));
 		Console.WriteLine(CheckChessStepKing((3,4),(6,3)));
-		
-		
 	
+		(string, int) student = ("Vasya", 18);
+		Console.WriteLine(student.Item1);
+		(int x, int y) point = (2,3);
+		double a = 2.2;
+		long b = 1;
+		(double a, long b) operand = (a,b);
+		Console.WriteLine(ConvertSecondToTime(1000));
     }
 
     static double Divide(int a, double b)
@@ -141,23 +145,17 @@ static class Program
 		return symbolOut;
 	}
 
-	static double Time(double seconds)
+	static (int, int, int) ConvertSecondToTime(int totalSeconds)
 	{
-		double minutes = seconds/60;
-		double hourses = minutes/60;
+		int totalMinutes = totalSeconds/60;
+		int hourses = totalMinutes/60;
+		int seconds = totalSeconds%60;
+		int minutes = totalMinutes%60;
+				
+		Console.WriteLine($",{hourses},{minutes},{seconds}");
 		
-		Console.WriteLine($"{minutes},{hourses},{seconds}");
-		
-		return seconds;
+		return (hourses, minutes, seconds);
 	}
-	/*любая фигура
-1. Стоит на месте
-2. 8x8 ( <1, >8) любая из координат
-
-Конь!
-3. dx, dy !=0
-4. |dx + dy| = 3
-*/
 
 	static bool CheckChessStepHorse((int x, int y)source, (int x, int y)destination)
 	{
@@ -189,6 +187,7 @@ static class Program
 		
 		return IsBishop(dx,dy);
 	}
+	
 	
 	static bool IsBishop(int dx, int dy)
 	{
@@ -257,24 +256,30 @@ static class Program
 		{
 			return false;
 		}
-				
-		int dx = Math.Abs(source.x-destination.x);
-		int dy = Math.Abs(source.y-destination.y);
 		
-		return dx == 0 && dy == 1;
+		(int x, int y) d = GetDelta(source, destination);
+		
+		return d.x == 0 && d.y == 1;
 	}
 	
-	static bool CheckChessStepKing((int x, int y)source, (int x, int y)destination)
+	static bool CheckChessStepKing((int x, int y) source, (int x, int y) destination)
 	{
 		if(!StepIsReal(source,destination))
 		{
 			return false;
 		}
 				
+		(int x, int y) d = GetDelta(source, destination);
+		
+		return (d.x == 1 && d.y == 0) || (d.x == 0 && d.y == 1) || (d.x == 1 && d.y == 1);
+	}
+	
+	static (int, int) GetDelta((int x, int y)source, (int x, int y)destination)
+	{
 		int dx = Math.Abs(source.x-destination.x);
 		int dy = Math.Abs(source.y-destination.y);
 		
-		return (dx == 1 && dy == 0) || (dx == 0 && dy == 1) || (dx == 1 && dy == 1);
+		return (dx,dy);
 	}
 		
 }
