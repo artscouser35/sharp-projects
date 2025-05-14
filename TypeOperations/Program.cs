@@ -45,6 +45,7 @@ static class Program
 		long b = 1;
 		(double a, long b) operand = (a,b);
 		Console.WriteLine(ConvertSecondToTime(1000));
+		Zodiac((21,2));
     }
 
     static double Divide(int a, double b)
@@ -106,7 +107,7 @@ static class Program
 							: "Old";
 		
 		Console.WriteLine(message);
-		
+		Console.WriteLine(Zodiac((21,2)));
 			
 	}
 	
@@ -280,6 +281,63 @@ static class Program
 		int dy = Math.Abs(source.y-destination.y);
 		
 		return (dx,dy);
+	}
+	
+	static string Zodiac((int day, int mount) date)
+	{
+		if((date.day >= 21  && date.mount == 1) || (date.day <= 19 && date.mount == 2))
+		{
+			Console.WriteLine("Water bearer");
+		}
+		else if((date.day >= 20  && date.mount == 2) || (date.day <= 20 && date.mount == 3))
+		{
+			
+			return "Fish";
+		}
+		else if((date.day >= 21  && date.mount == 3) || (date.day <= 20 && date.mount == 4))
+		{
+			return "Ram";
+		}
+		else if((date.day >= 21  && date.mount == 4) || (date.day <= 21 && date.mount == 5))
+		{
+			return "Bull";
+		}
+		else if((date.day >= 22  && date.mount == 5) || (date.day <= 21 && date.mount == 6))
+		{
+			return "Twins";
+		}
+		else if((date.day >= 22  && date.mount == 6) || (date.day <= 22 && date.mount == 7))
+		{
+			return "Crab";
+		}
+		else if((date.day >= 23  && date.mount == 7) || (date.day <= 21 && date.mount == 8))
+		{
+			return "Lion";
+		}
+		else if((date.day >= 22  && date.mount == 8) || (date.day <= 23 && date.mount == 9))
+		{
+			return "Maiden";
+		}
+		else if((date.day >= 24  && date.mount == 9) || (date.day <= 23 && date.mount == 10))
+		{
+			return "Scales";
+		}
+		else if((date.day >= 24  && date.mount == 10) || (date.day <= 22 && date.mount == 11))
+		{
+			return "Scorpion";
+		}
+		else if((date.day >= 23  && date.mount == 11) || (date.day <= 22 && date.mount == 12))
+		{
+			return "Archer";
+		}
+		else 
+		{
+			return "Sea-Goat";
+		}
+		
+		return "No Zodiac";
+		
+		 		
 	}
 		
 }
