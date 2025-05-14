@@ -46,6 +46,7 @@ static class Program
 		(double a, long b) operand = (a,b);
 		Console.WriteLine(ConvertSecondToTime(1000));
 		Zodiac((21,2));
+		Console.WriteLine(Years(2024));
     }
 
     static double Divide(int a, double b)
@@ -335,9 +336,17 @@ static class Program
 			return "Sea-Goat";
 		}
 		
-		return "No Zodiac";
+		return "No Zodiac";		 		
+	}
+	
+	static string Years(int date)
+	{
+		if((date % 4 == 0 && date % 100 != 0) || date % 400 == 0)
+		{
+			return "Leap year";
+		}
 		
-		 		
+		return "No leap year";
 	}
 		
 }
