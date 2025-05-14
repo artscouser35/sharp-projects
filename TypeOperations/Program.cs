@@ -47,6 +47,7 @@ static class Program
 		Console.WriteLine(ConvertSecondToTime(1000));
 		Zodiac((21,2));
 		Console.WriteLine(Years(2024));
+		Console.WriteLine(Taxi((23,11)));
     }
 
     static double Divide(int a, double b)
@@ -347,6 +348,23 @@ static class Program
 		}
 		
 		return "No leap year";
+	}
+	
+	static double Taxi((int date, int distance)parametr)
+	{
+		
+		double price = 100;
+		
+		if(parametr.date >= 22 || parametr.date <= 6)
+		{
+			price = price * 1.3;
+		}
+		if(parametr.distance > 10)
+		{
+			price += ((parametr.distance - 10) * 15);
+			
+		}
+		return price;		
 	}
 		
 }
