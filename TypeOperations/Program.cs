@@ -294,7 +294,6 @@ static class Program
 		}
 		else if((date.day >= 20  && date.mount == 2) || (date.day <= 20 && date.mount == 3))
 		{
-			
 			return "Fish";
 		}
 		else if((date.day >= 21  && date.mount == 3) || (date.day <= 20 && date.mount == 4))
@@ -341,17 +340,17 @@ static class Program
 		return "No Zodiac";		 		
 	}
 	
-	static string Years(int date)
+	static bool IsLeapYear(int date)
 	{
 		if((date % 4 == 0 && date % 100 != 0) || date % 400 == 0)
 		{
-			return "Leap year";
+			return true;
 		}
 		
-		return "No leap year";
+		return false;
 	}
 	
-	static double Taxi((int date, int distance)parametr)
+	static double GetTaxiPrice((int date, int distance) parametr)
 	{
 		
 		double price = 100;
@@ -368,7 +367,7 @@ static class Program
 		return price;		
 	}
 	
-	static int Penalty(int speed, int date)
+	static int ScorePenalty(int speed, int date)
 	{	
 		if(speed <= 60)
 		{
