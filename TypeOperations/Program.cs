@@ -48,6 +48,7 @@ static class Program
 		Zodiac((21,2));
 		Console.WriteLine(Years(2024));
 		Console.WriteLine(Taxi((23,11)));
+		Console.WriteLine(Penalty(80,3));
     }
 
     static double Divide(int a, double b)
@@ -365,6 +366,35 @@ static class Program
 			
 		}
 		return price;		
+	}
+	
+	static int Penalty(int speed, int date)
+	{	
+		if(speed <= 60)
+		{
+			return 0;
+		}
+		else if(speed > 60 && speed <= 80)
+		{
+			return 500;
+		}
+		else if(speed > 80 && speed <= 100 && date >= 0 && date <= 5)
+		{
+			return 3000;
+		}
+		else if(speed > 80 && speed <= 100)
+		{
+			return 1500;
+		}
+		else if(speed > 100 && date >= 0 && date <= 5)
+		{
+			Console.WriteLine("Лишение прав");
+			return 10000;
+		}
+		else
+		{
+			return 5000;
+		}
 	}
 		
 }
