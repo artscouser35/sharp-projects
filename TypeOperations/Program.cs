@@ -46,9 +46,9 @@ static class Program
 		(double a, long b) operand = (a,b);
 		Console.WriteLine(ConvertSecondToTime(1000));
 		Zodiac((21,2));
-		Console.WriteLine(Years(2024));
-		Console.WriteLine(Taxi((23,11)));
-		Console.WriteLine(Penalty(80,3));
+		Console.WriteLine(IsLeapYear(2024));
+		Console.WriteLine(GetTaxiPrice((23,11)));
+		Console.WriteLine(ScorePenalty(80,3));
     }
 
     static double Divide(int a, double b)
@@ -287,67 +287,88 @@ static class Program
 	}
 	
 	static string Zodiac((int day, int mount) date)
-	{
-		if((date.day >= 21  && date.mount == 1) || (date.day <= 19 && date.mount == 2))
+	{		
+		switch(date.mount)
 		{
-			Console.WriteLine("Water bearer");
+			case 1:
+            if (date.day >= 21)
+                return "Water bearer"; 
+            else
+                return "Sea-Goat"; 
+
+			case 2:
+            if (date.day <= 19)
+                return "Water bearer";
+            else
+                return "Fish"; 
+
+			case 3:
+            if (date.day <= 20)
+                return "Fish";
+            else
+                return "Ram"; 
+
+			case 4:
+            if (date.day <= 20)
+                return "Ram";
+            else
+                return "Bull"; 
+
+			case 5:
+            if (date.day <= 21)
+                return "Bull";
+            else
+                return "Twins";
+
+			case 6:
+            if (date.day <= 21)
+                return "Twins";
+            else
+                return "Crab";
+
+			case 7:
+            if (date.day <= 22)
+                return "Crab";
+            else
+                return "Lion";
+
+			case 8:
+            if (date.day <= 21)
+                return "Lion";
+            else
+                return "Maiden";
+
+			case 9:
+            if (date.day <= 23)
+                return "Maiden";
+            else
+                return "Scales"; 
+
+			case 10:
+            if (date.day <= 23)
+                return "Scales";
+            else
+                return "Scorpion"; 
+
+			case 11:
+            if (date.day <= 22)
+                return "Scorpion";
+            else
+                return "Archer"; 
+
+			case 12:
+            if (date.day <= 22)
+                return "Archer";
+            else
+                return "Sea-Goat";
 		}
-		else if((date.day >= 20  && date.mount == 2) || (date.day <= 20 && date.mount == 3))
-		{
-			return "Fish";
-		}
-		else if((date.day >= 21  && date.mount == 3) || (date.day <= 20 && date.mount == 4))
-		{
-			return "Ram";
-		}
-		else if((date.day >= 21  && date.mount == 4) || (date.day <= 21 && date.mount == 5))
-		{
-			return "Bull";
-		}
-		else if((date.day >= 22  && date.mount == 5) || (date.day <= 21 && date.mount == 6))
-		{
-			return "Twins";
-		}
-		else if((date.day >= 22  && date.mount == 6) || (date.day <= 22 && date.mount == 7))
-		{
-			return "Crab";
-		}
-		else if((date.day >= 23  && date.mount == 7) || (date.day <= 21 && date.mount == 8))
-		{
-			return "Lion";
-		}
-		else if((date.day >= 22  && date.mount == 8) || (date.day <= 23 && date.mount == 9))
-		{
-			return "Maiden";
-		}
-		else if((date.day >= 24  && date.mount == 9) || (date.day <= 23 && date.mount == 10))
-		{
-			return "Scales";
-		}
-		else if((date.day >= 24  && date.mount == 10) || (date.day <= 22 && date.mount == 11))
-		{
-			return "Scorpion";
-		}
-		else if((date.day >= 23  && date.mount == 11) || (date.day <= 22 && date.mount == 12))
-		{
-			return "Archer";
-		}
-		else 
-		{
-			return "Sea-Goat";
-		}
+		return "No Zodiac";
 		
-		return "No Zodiac";		 		
 	}
 	
 	static bool IsLeapYear(int date)
 	{
-		if((date % 4 == 0 && date % 100 != 0) || date % 400 == 0)
-		{
-			return true;
-		}
-		
-		return false;
+		return date % 4 == 0 && date % 100 !=0 || date % 400 == 0? true : false;
 	}
 	
 	static double GetTaxiPrice((int date, int distance) parametr)
