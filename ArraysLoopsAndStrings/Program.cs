@@ -36,6 +36,28 @@ class Program
 		s = ReplaceA(s);
 		Console.WriteLine(s);*/
 		Console.WriteLine(CheckDivide(5));
+		string[] emails = new[]
+		{
+			"test.email+alex@leetcode.com",       // -> testemail@leetcode.com
+			"test.e.mail+bob@leetcode.com",       // -> testemail@leetcode.com (тот же)
+			"testemail+david@leetcode.com",       // -> testemail@leetcode.com (тот же)
+			"user.name+tag+sorting@example.com",  // -> username@example.com
+			"user.name@example.com",              // -> username@example.com (тот же)
+			"username@example.com",               // -> username@example.com (тот же)
+			"user.name+something@domain.com",     // -> username@domain.com
+			"u.sername@domain.com",               // -> username@domain.com (тот же)
+			"another.email+test@different.com",   // -> anotheremail@different.com
+			"anotheremail@different.com"          // -> anotheremail@different.com (тот же)
+		};
+		int result = GetCountUniqueEmails(emails);
+		Console.WriteLine(result);
+		
+		string [] arr = GetFizzBuzzArray(15);
+		Console.WriteLine(string.Join(',', arr));
+		string[] arrrr = AssingRanks(new int[] { 3, 2, 4, 1, 5 });
+		Console.WriteLine(string.Join(", ", arrrr));
+		string s = "LLPPPLLPPA";
+		Console.WriteLine(CheckRecord(s));
 		
     }
 	
@@ -51,7 +73,11 @@ class Program
 	
 	static bool CheckDivide(int n)
 	{
-		if(n % 3 == 0)
+		if(n == 3 || n == 5)
+		{
+			return true;
+		}
+		else if(n % 3 == 0)
 		{
 			n /= 3;
 			return CheckDivide(n);
@@ -61,16 +87,8 @@ class Program
 			n /= 5;
 			return CheckDivide(n);
 		}
-		else if(n == 1)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		
-		
+
+		return false;		
 	}
 	
 	 
@@ -208,30 +226,27 @@ class Program
 	
 	static string[] AssingRanks(int[] athlete)
 	{	
+		
 		string[] result = new string[athlete.Length];
 		for(int i = 0; i < athlete.Length; i++)
-		{
-			if(i == 0)
+		{	
+			int place = 1;
+			for(int j = 0; j < athlete.Length; j++)
 			{
-				result[i] = "1 место";
-			}
-			else if(i == 1)
-			{
-				result[i] = "2 место"; 
-			}
-			else if(i == 2)
-			{
-				result[i] = "3 место";
-			}
-			else if(i == 3)
-			{
-				result[i] = "4";
-			}
-			else
-			{
-				result[i] = "5";
+				if(athlete[i] > athlete[j])
+				{
+					place++;
+				}
 			}
 			
+			if (place == 1)
+            result[i] = "1 место";
+			else if (place == 2)
+            result[i] = "2 место";
+			else if (place == 3)
+            result[i] = "3 место";
+			else
+            result[i] = place.ToString();
 		}
 		
 		return result;
@@ -241,7 +256,6 @@ class Program
 	{
 		int left = 0;
 		int right = array.Length - 1;
-		
 		
 		while(left <= right)
 		{
@@ -257,9 +271,110 @@ class Program
 			else
 			{
 				left = mid - 1;
-			}
-					
+			}					
 		}
 		return -1;
+	}
+	
+	static int GetCountUniqueEmails(string[] emails)
+	{
+		for(int i = 0; i < emails.Length; i++)
+		{
+			string[] chaptersOfEmail = emails[i].Split('@'); // ar.t+az@mail.ru => ["ar.t+az", "mail.ru"]
+			chaptersOfEmail[0] = chaptersOfEmail[0].Replace(".",""); // ar.t+az => art+az
+			int pluseIndex = chaptersOfEmail[0].IndexOf('+');
+			if(pluseIndex != -1)
+			{
+				chaptersOfEmail[0] = chaptersOfEmail[0].Substring(0, pluseIndex);
+			}
+			emails[i] = $"{chaptersOfEmail[0]}@{chaptersOfEmail[1]}";
+		}
+		
+		int count = 0;
+		for(int i = 0; i < emails.Length; i++)
+		{
+			bool isDuplicate = false;
+			for(int j = i+1; j < emails.Length; j++)
+			{	
+				if(emails[i] == emails[j])
+				{	
+					isDuplicate = true;
+					break;
+				}
+			}
+			if(!isDuplicate)
+			{
+				count++;
+			}
+		}
+		return count;			
+	}
+	
+	static string[] GetFizzBuzzArray(int n)
+	{
+		string[] array = new string[n];
+		for(int i = 1; i <= n; i++)
+		{
+			if(i % 3 == 0 && i % 5 == 0)
+			{
+				array[i-1] = "FizzBuzz";
+			}			
+			else if(i % 3 == 0)
+			{
+				array[i-1] = "Fizz";
+			}
+			else if(i % 5 == 0)
+			{
+				array[i-1] = "Buzz";
+			}
+			else 
+			{
+				array[i-1] = i.ToString();
+			}			
+			
+		}
+		return array;
+	}
+	
+	static bool CheckRecord(string s)
+	{
+		int countA = 0;
+		int countL = 0;
+		for(int i = 0; i < s.Length; i++)
+		{	
+			if(s[i] == 'A')
+			{
+				countA +=1;
+				if(countA >= 2)
+				{
+					return false;
+					
+				}						
+			}
+			
+			if(s[i] == 'L')
+			{
+				countL += 1;
+				if(countL >= 3)
+				{
+					return false;
+				}
+			}
+			else
+			{
+				countL = 0;
+			}
+								
+		}
+		
+		if(countA < 2 && countL <= 3)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
 	}
 }
