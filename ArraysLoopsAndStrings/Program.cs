@@ -35,7 +35,7 @@ class Program
 		string s = "Hello";
 		s = ReplaceA(s);
 		Console.WriteLine(s);*/
-		Console.WriteLine(CheckDivide(5));
+		/*Console.WriteLine(CheckDivide(5));
 		string[] emails = new[]
 		{
 			"test.email+alex@leetcode.com",       // -> testemail@leetcode.com
@@ -57,10 +57,259 @@ class Program
 		string[] arrrr = AssingRanks(new int[] { 3, 2, 4, 1, 5 });
 		Console.WriteLine(string.Join(", ", arrrr));
 		string s = "LLPPPLLPPA";
-		Console.WriteLine(CheckRecord(s));
+		Console.WriteLine(CheckRecord(s));*/
+		/*int a = 1;
+		int b = 2;
+		Swap(ref a, ref b);
+		Console.WriteLine($"{a},{b}");*/
+		/*int[] numbers = new int[] { 1, 2, 3 };
+		ReplaceArray(ref numbers);
+		Console.WriteLine(numbers[0]);
+		string r = "arra";
+		Console.WriteLine(IsPalindrom(r));
+		string q = "qwerty";
+		Console.WriteLine(Delete(q));
+		Console.WriteLine(IsPassword("wqe21321ewqr12"));
+		string sentence = "Это   строка    с   лишними  пробелами.";
+		string overturn = "Hello World";
+		Console.WriteLine(DeleteString(sentence));
+		Console.WriteLine(Overturn(overturn));
+		string sentence2 = "Hi! How are you? :) 123";
+		string sentence3 = "пРИвЕт мИр";
+		Console.WriteLine(DeleteChar(sentence2));
+		Console.WriteLine(UpperStr(sentence3));
+		string sentence4 = "Это пример строки";
+		Console.WriteLine(CountString(sentence4));
+		string text = "Phasellus luctus nibh tellus, in suscipit purus finibus ut. Vivamus tempor massa quis ante interdum tincidunt. Nam pellentesque dolor in leo feugiat placerat. Etiam rutrum id ligula sit amet euismod. Curabitur enim ex, ultrices vitae lobortis aliquet, porttitor eget lorem. Nam at dui accumsan, consequat purus nec, suscipit elit. Vestibulum quis turpis sit amet leo rhoncus cursus ac quis sapien. Suspendisse interdum nunc aliquam, laoreet mi vitae, ultrices urna. Sed mattis dolor massa, ac rutrum neque finibus a. Cras euismod commodo aliquet. Praesent sit amet efficitur nisl. Nunc in eros neque. Sed at urna sed lacus vulputate faucibus. Duis a augue gravida, lobortis ligula a, auctor mauris.";		
+		Console.WriteLine(LongSentence(text));
+		int[] burble = new int[]{3,2,5,4,1,6};
+		int[] result = BurbleSort(burble);
+		Console.WriteLine(string.Join(",", result));
+		int[] snaker = new int[]{10,2,5,4,1,6};
+        int[] result2 = ShakerSort(snaker);  // Исправлено на ShakerSort
+        Console.WriteLine(string.Join(",", result2));*/
+		int[] comb = new int[]{10,2,5,4,1,6,8,32,7};
+        int[] result3 = CombSort(comb);  // Исправлено на ShakerSort
+        Console.WriteLine(string.Join(",", result3));
 		
+			
     }
 	
+	static int[] CombSort(int[] comb)
+	{
+		int sort = 0;
+		int distance = comb.Length;
+
+		while (distance > 1)
+		{
+			distance = Math.Max(1, (distance * 10) / 13);
+
+			for (int i = 0; i + distance < comb.Length; i++)
+			{
+			   if (comb[i] > comb[i + distance])
+			   {
+				   sort = comb[i];
+				   comb[i] = comb[i + distance];
+				   comb[i + distance] = sort;
+			   }
+			}			   
+		}
+		return comb;
+	}
+  
+	
+	static int[] BurbleSort(int[] burble)
+	{
+		int sort = 0;
+		for(int i = 0; i < burble.Length; i++)
+		{
+			for(int j = 1; j < burble.Length; j++)
+			{
+				if(burble[j-1] > burble[j])
+				{
+					sort = burble[j];
+					burble[j] = burble[j-1];
+					burble[j-1] = sort;
+					
+				}
+				
+			}
+		}
+		return burble;
+	}
+	
+	static int[] ShakerSort(int[] shaker)
+	{
+    int sort = 0;
+    for (int i = 0; i < shaker.Length; i++)
+    {
+        for (int j = 1; j < shaker.Length; j++)
+        {
+            if (shaker[j - 1] > shaker[j])
+            {
+                sort = shaker[j];
+                shaker[j] = shaker[j - 1];
+                shaker[j - 1] = sort;
+            }
+        }
+        
+        for (int k = shaker.Length - 1; k > 0; k--)
+        {
+            if (shaker[k] < shaker[k-1])
+            {
+                sort = shaker[k];
+                shaker[k] = shaker[k - 1];
+                shaker[k -1] = sort;
+            }
+        }     
+    }
+    return shaker;
+	}
+	
+	static string LongSentence(string text)
+	{
+		int index = 0;
+		int length = 0;
+		int lengthBefore = 0;
+		string[] sent = text.Split('.');
+		for(int i = 0; i < sent.Length; i++)
+		{	
+			if(length > lengthBefore)
+			{	
+				length = sent[i].Length;
+				index = i;
+			}			
+		}
+		
+			
+		string[] sent2 = sent[index].Split(' ');
+		
+		return $"{sent2[0]}-{sent2[^1]}";
+	}
+	
+	
+	static int CountString(string sentence4)
+	{	
+		int count = 0;
+		char[] ch = sentence4.ToCharArray();
+		for(int i = 0; i < sentence4.Length; i++)
+		{
+			if(ch[i] == ' ')
+			{
+				count += 1;
+			}
+			
+			if(i == sentence4.Length -1)
+			{
+				count += 1;
+			}
+				
+		}
+		
+		return count;
+	}
+	
+	static string UpperStr(string sentence3)
+	{
+		char[] ch = sentence3.ToCharArray();
+		ch[0] = char.ToUpper(ch[0]);
+		for(int i = 0; i < sentence3.Length - 1; i++)
+		{
+			if(ch[i] == ' ')
+			{
+				ch[i+1] =  char.ToUpper(ch[i+1]);
+				
+			}
+			else
+			{
+				ch[i+1] = char.ToLower(ch[i+1]);
+			}
+						
+		}
+		
+		string str = new string(ch);
+		
+		return str;	
+	}
+	
+	static string DeleteChar(string sentence2)
+	{
+		char[] ch = sentence2.ToCharArray();
+		for(int i = 0; i < sentence2.Length; i++)
+		{
+			if(ch[i] == '!' || ch[i] == '?' || ch[i] == ')' || ch[i] == ':' || ch[i] == '1'|| ch[i] == '2'|| ch[i] == '3')
+			{
+				ch[i] = ' ';
+			}
+		}
+		
+		string str = new string(ch);
+		
+		return str;	
+	}
+	
+	static string DeleteString(string sentence)
+	{
+		for(int i = 1; i < sentence.Length; i++)
+		{
+			
+			if(sentence[i-1] == ' ' && sentence[i] == ' ')
+			{
+				sentence = sentence.Replace("  ", " ");
+				i--; 
+			}
+		}
+		return sentence;
+	}
+	
+	static string Overturn(string overturn)
+	{
+		
+		 char[] chars = overturn.ToCharArray(); 
+		 Array.Reverse(chars);              
+         return new string(chars);
+	}
+	
+	static string Delete(string a)
+	{
+		string[] alpha = new string[] {"a","i","o","e","u"};
+		for(int i = 0; i <  alpha.Length; i++)
+		{
+			a = a.Replace(alpha[i], "");			
+		}
+		return a;
+	}
+	
+	static string IsPassword(string password)
+	{	
+		for(int i = 0; i <= 9; i++)
+		{
+			password = password.Replace(i.ToString(), "*");
+		}
+		return password;
+		
+	}
+	
+	static bool IsPalindrom(string s)
+	{
+		for(int i = 0; i < s.Length / 2; i++)
+		{
+			if(s[i] != s[s.Length - 1 - i])
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+	static void ReplaceArray(ref int[] arr)
+	{
+		arr = new int[] { 9, 9, 9 };
+	}
+	
+	static void Swap(ref int a, ref int b)
+	{
+		(a, b) = (b, a);
+	}
 	static int GetFactorial(int n)
 	{
 		if(n == 1)
@@ -342,39 +591,36 @@ class Program
 		int countL = 0;
 		for(int i = 0; i < s.Length; i++)
 		{	
-			if(s[i] == 'A')
+			if(s[i] == 'A' && ++countA >= 2)
 			{
-				countA +=1;
-				if(countA >= 2)
-				{
-					return false;
-					
-				}						
+				return false;									
 			}
 			
-			if(s[i] == 'L')
+			if(s[i] == 'L' && ++countL >= 3)
 			{
-				countL += 1;
-				if(countL >= 3)
-				{
-					return false;
-				}
+				return false;				
 			}
 			else
 			{
 				countL = 0;
-			}
-								
+			}								
 		}
 		
-		if(countA < 2 && countL <= 3)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		
+		return countA < 2 && countL <= 3;				
 	}
+	
+	/*static bool IsSubsequence(string s, string t)
+	{
+		if(s.Length > t.Length || (s == "" && t == "")
+		{
+			ArgumentEx
+		}
+		for(int i = 0; i < t.Length; i++)
+		{
+			for(int j = 0; j < s.Length; j++)
+			{
+				
+			}
+		}
+	}*/
 }
