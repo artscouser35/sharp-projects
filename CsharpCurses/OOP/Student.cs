@@ -34,6 +34,6 @@ public class Student : People, IStudiable
     public override string ToString()
     {
         //TODO: ВЕРНУТЬ СТРОКУ С ПОДРОБНЫМ ОПИСАНИЕМ О СТУДЕНТЕ
-        return " ";
+        return $"Name: {FullName}, Age: {Age} Sex: {Sex}, TypeOfStudy: {TypeOfStudy},";
     }
 }
